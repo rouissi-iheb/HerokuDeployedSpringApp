@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="template">
+	<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+		<title>Keys List</title>
+	</head>
+	<body>
+	<div class="container" layout:fragment="Mycontent">
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10">
+				<br><br>
+				<h1>
+				Keys List
+				</h1>
+				<table class="table table-striped">
+					<tr>
+						<th>ID</th>
+						<th>app type</th>
+						<th>app name</th>
+						<th>app key</th>
+						<th>key max users</th>
+						<th>key duration</th>
+						<th>key Creation Date</th>
+						<th>delete</th>
+						<!--  <th>edit</th>-->
+					</tr>
+					<tr th:each="key:${keys.content}">
+						<td th:text="${key.idkey }"></td>
+						<td th:text="${key.appType }"></td>
+						<td th:text="${key.appName }"></td>
+						<th th:text="${key.ackey}"></th>
+						<td th:text="${key.maxUsers }"></td>
+						<td th:text="${key.activationDays }"></td>
+						<td th:text="${key.creatinDate}"><fmt:formatDate pattern="dd/MM/yyyy" value="" /></td>
+						<td><a class="btn btn-danger" onclick="return confirm('are you sure ?')" th:href="@{DeleteKey(id=${key.idkey}, page=${currentPage},size=${size})}">Delete</a></td>
+						<!-- <td><a th:href="DeleteKey?id=${key.idkey}" class="btn btn-sm btn-danger" >delete</a></td>
+						<td><a th:href="EditKey?id=${key.idkey}" class="btn btn-sm btn-success">Edit</a></td> -->
+					</tr>
+				</table>
+				<br><br>
+				<ul class="nav nav-pills">
+				<li th:each="page,status:${pages}">
+					<a th:class="${status.index==currentPage?'btn btn-primary':'btn' }"
+					th:href="@{ KeysList(page=${status.index}, size=${size} ) }"
+					th:text="${status.index }"></a>
+				</li>
+				</ul>
+				<br>
+				<a href="showCreate">Add new Key</a>
+			</div>
+			
+			<div class="col-sm-1"></div>
+		</div>
+	</div>
+	</body>
+</html>
